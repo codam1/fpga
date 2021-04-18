@@ -31,14 +31,9 @@ void output (int LED, struct metal_gpio *gpio){
 // choose which LED to turn on
 //choose button we want to use
 
-void toggle(int x,int LED, int BUT, struct metal_gpio *gpio){
-
-		 x = metal_gpio_get_input_pin(gpio, BUT);
-			if (x) {
-					printf("button was pressed \n");
-				//	metal_gpio_enable_output(gpio, LED);
+void toggle(int LED, struct metal_gpio *gpio){
+					printf("button %d was pressed \n" , LED - 1);
 					metal_gpio_toggle_pin(gpio, LED);
-				}
 		}
 
 
@@ -69,9 +64,17 @@ int main() {
 		output(2,gpio0);
 		output(3,gpio0);
 
-		toggle(val0,1,BUT0,gpio0);
-		toggle(val1,2,BUT1,gpio0);
-		toggle(val2,3,BUT2,gpio0);
+		if (val0){
+			toggle(1,gpio0);
+		}
+
+		else if (val1){
+			toggle(2,gpio0);
+		}
+
+		else if (val2){
+			toggle(3,gpio0);
+		}
 	}
 
 }
